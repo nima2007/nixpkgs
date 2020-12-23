@@ -5,11 +5,12 @@
 , ninja
 , zstd
 , curl
+, argp-standalone
 }:
 
 stdenv.mkDerivation rec {
   pname = "zchunk";
-  version = "1.1.6";
+  version = "1.1.8";
 
   outputs = [ "out" "lib" "dev" ];
 
@@ -17,7 +18,7 @@ stdenv.mkDerivation rec {
     owner = "zchunk";
     repo = pname;
     rev = version;
-    sha256 = "1j05f26xppwbkxrm11895blm75i1a6p9q23x7wlkqw198mpnpbbv";
+    sha256 = "0q1jafxh5nqgn2w5ciljkh8h46xma0qia8a5rj9m0pxixcacqj6q";
   };
 
   nativeBuildInputs = [
@@ -29,7 +30,10 @@ stdenv.mkDerivation rec {
   buildInputs = [
     zstd
     curl
+    argp-standalone
   ];
+
+  patches = [ ./darwin.patch ];
 
   meta = with stdenv.lib; {
     description = "File format designed for highly efficient deltas while maintaining good compression";
